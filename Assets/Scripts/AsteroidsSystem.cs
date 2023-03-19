@@ -2,23 +2,21 @@
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
-using Unity.Rendering;
 using Unity.Transforms;
-using UnityEngine;
-using Random = Unity.Mathematics.Random;
 namespace DefaultNamespace
 {
     public class AsteroidsSystem : ComponentSystem
     {
         private NativeArray<AsteroidEntity> asteroidsData;
         private Random random;
-        private const int asteroidsCount = 50;
+        private const int InitialAsteroidsCount = 50;
+        private const int asteroidsCapacity = 5000;
         bool asteroidsInstantiated = false;
-        
+
         protected override void OnCreate()
         {
             base.OnCreate();
-            asteroidsData = new NativeArray<AsteroidEntity>(asteroidsCount, Allocator.Persistent);
+            asteroidsData = new NativeArray<AsteroidEntity>(asteroidsCapacity, Allocator.Persistent);
             random = new Random(8979546);
         }
 
@@ -29,31 +27,37 @@ namespace DefaultNamespace
                 Entity gamePrefabsContainerEntity = GetSingletonEntity<GamePrefabsContainerEntity>();
                 Entity asteroidPrefab = EntityManager.GetComponentData<GamePrefabsContainerEntity>(gamePrefabsContainerEntity).asteroidPrefab;
 
-                for (int i = 0; i < asteroidsCount; i++)
+                for (int i = 0; i < InitialAsteroidsCount; i++)
                 {
-                    float3 randomDirection = math.normalize(new float3(random.NextFloat(-1f, 1f), random.NextFloat(-1f, 1f), 0f));
-                    float randomSpeed = random.NextFloat(10f, 20f);
-
                     Entity asteroid = EntityManager.Instantiate(asteroidPrefab);
-
                     AsteroidEntity asteroidEntity = EntityManager.GetComponentData<AsteroidEntity>(asteroid);
-                    asteroidEntity.direction = randomDirection;
-                    asteroidEntity.speed = randomSpeed;
+
                     asteroidEntity.asteroidIndex = i;
 
-                    asteroidEntity.position = new float3(random.NextFloat(150f, 500f), random.NextFloat(150f, 500f), 0f);
+                    float3 randomDirection = math.normalize(new float3(random.NextFloat(-1f, 1f), random.NextFloat(-1f, 1f), 0f));
+                    asteroidEntity.direction = randomDirection;
+
+                    float randomSpeed = random.NextFloat(10f, 20f);
+                    asteroidEntity.speed = randomSpeed;
+
+                    float3 randomPosition = new float3(random.NextFloat(150f, 500f), random.NextFloat(150f, 500f), 0f);
+                    asteroidEntity.position = randomPosition;
 
                     if (random.NextInt(0, 2) == 0)
                     {
                         asteroidEntity.position.x *= -1;
                     }
-                    
+
                     if (random.NextInt(0, 2) == 0)
                     {
                         asteroidEntity.position.y *= -1;
                     }
 
+                    float randomScale = random.NextFloat(500f, 650f);
+                    asteroidEntity.scale = randomScale;
+
                     asteroidEntity.rotation = quaternion.identity;
+
                     asteroidsData[i] = asteroidEntity;
                     EntityManager.SetComponentData(asteroid, asteroidEntity);
                 }
@@ -67,20 +71,21 @@ namespace DefaultNamespace
                 asteroidsData = asteroidsData
             };
 
-            JobHandle jobHandleDep = new JobHandle();
-            JobHandle jobHandle = moveJob.ScheduleParallel(asteroidsCount, 64, jobHandleDep);
+            JobHandle jobHandle = moveJob.ScheduleParallel(asteroidsData.Length, 64, default(JobHandle));
 
             jobHandle.Complete();
 
             if (jobHandle.IsCompleted)
             {
                 Entities
-                    .WithAll<AsteroidEntity, Translation, Rotation>()
-                    .ForEach((Entity entity, ref Translation asteroidTranslation, ref Rotation rotation) =>
+                    .WithAll<AsteroidEntity, Translation, Rotation, NonUniformScale>()
+                    .ForEach((Entity entity, ref Translation translation, ref Rotation rotation, ref NonUniformScale scale) =>
                     {
                         int entityIndex = EntityManager.GetComponentData<AsteroidEntity>(entity).asteroidIndex;
-                        asteroidTranslation.Value = asteroidsData[entityIndex].position;
+                        translation.Value = asteroidsData[entityIndex].position;
                         rotation.Value = asteroidsData[entityIndex].rotation;
+                        scale.Value = asteroidsData[entityIndex].scale;
+                        EntityManager.SetComponentData(entity, asteroidsData[entityIndex]);
                     });
             }
         }

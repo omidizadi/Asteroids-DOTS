@@ -1,3 +1,4 @@
+using DefaultNamespace;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -8,7 +9,7 @@ public class SpaceshipSystem : ComponentSystem
     private InputAction moveAction;
     private InputAction fireAction;
 
-    public float speed = 2.5f;  // speed of object
+    public float speed = 2.5f;    // speed of object
     public float friction = 1.5f; // amount of friction to apply to slow down object
     private float3 velocity;
     protected override void OnCreate()
@@ -40,10 +41,10 @@ public class SpaceshipSystem : ComponentSystem
             .ForEach((Entity entity, ref Translation translation, ref Rotation rotation) =>
             {
                 CalculateVelocity();
-                translation = ApplyVelocity(translation);
-                translation = DoHyperSpaceTravel(translation);
-                rotation = ApplyRotation(rotation);
-                
+                ApplyVelocity(ref translation);
+                DoHyperSpaceTravel(ref translation);
+                ApplyRotation(ref rotation, translation);
+
                 //Set the position and the rotation of the spaceship in the SpaceshipEntity component
                 SpaceshipEntity spaceshipEntity = EntityManager.GetComponentData<SpaceshipEntity>(entity);
                 spaceshipEntity.position = translation.Value;
@@ -53,18 +54,28 @@ public class SpaceshipSystem : ComponentSystem
                 // Check fire input
                 if (fireAction.triggered)
                 {
-                    Debug.Log("Fire input!");
+                    Entity gamePrefabsContainerEntity = GetSingletonEntity<GamePrefabsContainerEntity>();
+                    Entity bulletPrefab = EntityManager.GetComponentData<GamePrefabsContainerEntity>(gamePrefabsContainerEntity).bulletPrefab;
+
+                    Entity bullet = EntityManager.Instantiate(bulletPrefab);
+                    BulletEntity bulletEntity = EntityManager.GetComponentData<BulletEntity>(bullet);
+                    bulletEntity.position = translation.Value;
+                    bulletEntity.direction = math.forward(rotation.Value);
+                    //TODO: modify the speed of the bullet based on the spaceship's speed
+                    bulletEntity.speed = 200;
+
+
+                    EntityManager.SetComponentData(bullet, bulletEntity);
                 }
             });
     }
 
-    private Translation ApplyVelocity(Translation translation)
+    private void ApplyVelocity(ref Translation translation)
     {
         // Update object's position
         translation.Value += velocity;
-        return translation;
     }
-    private Translation DoHyperSpaceTravel(Translation translation)
+    private void DoHyperSpaceTravel(ref Translation translation)
     {
         //TODO: retrieve camera from a singleton to avoid using Camera.main
         if (Camera.main != null)
@@ -92,21 +103,20 @@ public class SpaceshipSystem : ComponentSystem
                 translation.Value.x = screenLeft;
             }
         }
-        return translation;
     }
 
-    private Rotation ApplyRotation(Rotation rotation)
+    private void ApplyRotation(ref Rotation rotation, Translation translation)
     {
-        // Rotate the spaceship to face the direction of movement
-        if (math.length(velocity) > 0f)
-        {
-            float3 forward = new float3(0f, 0f, -1f);
-            float3 direction = math.normalize(velocity);
-            quaternion targetRotation = quaternion.LookRotation(direction, forward);
-            rotation.Value = targetRotation;
-        }
-        return rotation;
+        // the ship look at the mouse position
+        Vector2 mousePosition = Mouse.current.position.ReadValue();
+        //TODO: retrieve camera from a singleton to avoid using Camera.main
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        worldPosition.z = translation.Value.z;
+        float3 direction = (float3)worldPosition - translation.Value;
+        Quaternion lookRotation = Quaternion.LookRotation(direction, -Vector3.forward);
+        rotation.Value = lookRotation;
     }
+
 
     private void CalculateVelocity()
     {

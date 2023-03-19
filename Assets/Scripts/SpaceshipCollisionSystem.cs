@@ -15,7 +15,7 @@ namespace DefaultNamespace
             {
                 return;
             }
-            
+
             if (defeatPanel == null)
             {
                 GameObject canvas = GameObject.Find("DefeatCanvas");
@@ -26,9 +26,10 @@ namespace DefaultNamespace
             {
                 AsteroidEntity asteroid = EntityManager.GetComponentData<AsteroidEntity>(asteroidEntity);
                 SpaceshipEntity spaceship = EntityManager.GetComponentData<SpaceshipEntity>(spaceshipEntity);
-                float distance = math.distance(asteroid.position, spaceship.position);
+                //Vector3.Distance is not a good idea for performance, is it the same case for math.distance?
+                float distance = math.distance(spaceship.position, asteroid.position);
                 //TODO: remove the magic number
-                if (distance < 60f)
+                if (distance < 40f)
                 {
                     PostUpdateCommands.DestroyEntity(asteroidEntity);
                     PostUpdateCommands.DestroyEntity(spaceshipEntity);

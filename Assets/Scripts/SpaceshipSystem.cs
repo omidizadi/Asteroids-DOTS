@@ -43,6 +43,12 @@ public class SpaceshipSystem : ComponentSystem
                 translation = ApplyVelocity(translation);
                 translation = DoHyperSpaceTravel(translation);
                 rotation = ApplyRotation(rotation);
+                
+                //Set the position and the rotation of the spaceship in the SpaceshipEntity component
+                SpaceshipEntity spaceshipEntity = EntityManager.GetComponentData<SpaceshipEntity>(entity);
+                spaceshipEntity.position = translation.Value;
+                spaceshipEntity.rotation = rotation.Value;
+                EntityManager.SetComponentData(entity, spaceshipEntity);
 
                 // Check fire input
                 if (fireAction.triggered)

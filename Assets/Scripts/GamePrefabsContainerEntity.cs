@@ -6,6 +6,6 @@ using UnityEngine;
 [GenerateAuthoringComponent]
 public struct GamePrefabsContainerEntity : IComponentData
 {
-    public Entity spaceshipPrefab;
+    public Entity asteroidPrefab;
     public Entity bulletPrefab;
 }

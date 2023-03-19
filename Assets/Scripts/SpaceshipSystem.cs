@@ -9,7 +9,7 @@ public class SpaceshipSystem : ComponentSystem
     private InputAction fireAction;
 
     public float speed = 2.5f;  // speed of object
-    public float friction = 1f; // amount of friction to apply to slow down object
+    public float friction = 1.5f; // amount of friction to apply to slow down object
     private float3 velocity;
     protected override void OnCreate()
     {

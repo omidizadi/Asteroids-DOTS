@@ -29,7 +29,7 @@ namespace DefaultNamespace
                 //Vector3.Distance is not a good idea for performance, is it the same case for math.distance?
                 float distance = math.distance(spaceship.position, asteroid.position);
                 //TODO: remove the magic number
-                if (distance < 40f)
+                if (distance < 20)
                 {
                     PostUpdateCommands.DestroyEntity(asteroidEntity);
                     PostUpdateCommands.DestroyEntity(spaceshipEntity);

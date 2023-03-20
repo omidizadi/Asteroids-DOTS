@@ -15,8 +15,8 @@ namespace DefaultNamespace
                     translation.Value = bullet.position;
                     EntityManager.SetComponentData(bulletEntity, bullet);
                     
-                    //check if the bullet is out of the screen, destroy it
-                    if (bullet.position.x > 100 || bullet.position.x < -100 || bullet.position.y > 100 || bullet.position.y < -100)
+                    //TODO: replace magic numbers
+                    if (bullet.position.x > 1000 || bullet.position.x < -1000 || bullet.position.y > 1000 || bullet.position.y < -1000)
                     {
                         PostUpdateCommands.DestroyEntity(bulletEntity);
                     }

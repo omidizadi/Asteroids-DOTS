@@ -3,6 +3,8 @@ using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
+using UnityEngine;
+using Random = Unity.Mathematics.Random;
 namespace DefaultNamespace
 {
     public class AsteroidsSystem : ComponentSystem
@@ -74,7 +76,6 @@ namespace DefaultNamespace
             JobHandle jobHandle = moveJob.ScheduleParallel(asteroidsData.Length, 64, default(JobHandle));
 
             jobHandle.Complete();
-
             if (jobHandle.IsCompleted)
             {
                 Entities
@@ -86,8 +87,51 @@ namespace DefaultNamespace
                         rotation.Value = asteroidsData[entityIndex].rotation;
                         scale.Value = asteroidsData[entityIndex].scale;
                         EntityManager.SetComponentData(entity, asteroidsData[entityIndex]);
+
+                        float3 asteroidPosition = asteroidsData[entityIndex].position;
+                        //TODO: optimize this
+                        Entities
+                            .WithAll<BulletEntity, Translation>()
+                            .ForEach((Entity bulletEntity, ref Translation bulletTranslation) =>
+                            {
+                                BulletEntity bullet = EntityManager.GetComponentData<BulletEntity>(bulletEntity);
+                                float3 bulletPosition = bulletTranslation.Value;
+                                if (math.length(bulletPosition - asteroidPosition) < 10f)
+                                {
+                                    PostUpdateCommands.DestroyEntity(bulletEntity);
+                                    PostUpdateCommands.DestroyEntity(entity);
+
+                                    //instantiate two new asteroids with a smaller scale moving in the same direction as the destroyed asteroid but in slightly different angles
+                                    Entity gamePrefabsContainerEntity = GetSingletonEntity<GamePrefabsContainerEntity>();
+                                    Entity asteroidPrefab = EntityManager.GetComponentData<GamePrefabsContainerEntity>(gamePrefabsContainerEntity).asteroidPrefab;
+
+                                    //get the number of entities of type AsteroidEntity in the scene
+                                    int asteroidsCount = EntityManager.CreateEntityQuery(typeof(AsteroidEntity)).CalculateEntityCount();
+                                    CreateSmallAsteroid(asteroidPrefab, entityIndex, asteroidsCount);
+                                    CreateSmallAsteroid(asteroidPrefab, entityIndex, asteroidsCount + 1);
+                                }
+                            });
                     });
             }
+        }
+        private void CreateSmallAsteroid(Entity asteroidPrefab, int entityIndex, int newIndex)
+        {
+            Entity asteroid = EntityManager.Instantiate(asteroidPrefab);
+            EntityManager.SetName(asteroid, "Asteroid " + newIndex);
+            AsteroidEntity asteroidEntity = EntityManager.GetComponentData<AsteroidEntity>(asteroid);
+            asteroidEntity.asteroidIndex = newIndex;
+            float angle = random.NextFloat(-10, 10);
+            Vector3 axis = Vector3.forward;
+            Quaternion rotation = Quaternion.AngleAxis(angle, axis);
+            Vector3 newDirection = rotation * asteroidsData[entityIndex].direction;
+            Vector3 normalizedDirection = Vector3.Normalize(newDirection);
+            asteroidEntity.direction =  rotation * normalizedDirection;
+            asteroidEntity.speed = asteroidsData[entityIndex].speed;
+            asteroidEntity.position = asteroidsData[entityIndex].position;
+            asteroidEntity.scale = asteroidsData[entityIndex].scale * 0.5f;
+            asteroidEntity.rotation = quaternion.identity;
+            asteroidsData[newIndex] = asteroidEntity;
+            EntityManager.SetComponentData(asteroid, asteroidEntity);
         }
 
         protected override void OnDestroy()

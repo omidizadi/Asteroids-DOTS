@@ -57,17 +57,25 @@ public class SpaceshipSystem : ComponentSystem
                     Entity gamePrefabsContainerEntity = GetSingletonEntity<GamePrefabsContainerEntity>();
                     Entity bulletPrefab = EntityManager.GetComponentData<GamePrefabsContainerEntity>(gamePrefabsContainerEntity).bulletPrefab;
 
-                    Entity bullet = EntityManager.Instantiate(bulletPrefab);
-                    BulletEntity bulletEntity = EntityManager.GetComponentData<BulletEntity>(bullet);
-                    bulletEntity.position = translation.Value;
-                    bulletEntity.direction = math.forward(rotation.Value);
-                    //TODO: modify the speed of the bullet based on the spaceship's speed
-                    bulletEntity.speed = 200;
 
-
-                    EntityManager.SetComponentData(bullet, bulletEntity);
+                    CreateNewBullet(bulletPrefab, translation, rotation);
+                    if (spaceshipEntity.powerUpType == PowerUpType.TripleShot)
+                    {
+                        CreateNewBullet(bulletPrefab, translation, rotation, 30);
+                        CreateNewBullet(bulletPrefab, translation, rotation, -30);
+                    }
                 }
             });
+    }
+    private void CreateNewBullet(Entity bulletPrefab, Translation translation, Rotation rotation, int angle = 0)
+    {
+        Entity bullet = EntityManager.Instantiate(bulletPrefab);
+        BulletEntity bulletEntity = EntityManager.GetComponentData<BulletEntity>(bullet);
+        bulletEntity.position = translation.Value;
+        bulletEntity.direction = math.mul(quaternion.AxisAngle(math.forward(), math.radians(angle)), math.forward(rotation.Value));
+        //TODO: modify the speed of the bullet based on the spaceship's speed
+        bulletEntity.speed = 200;
+        EntityManager.SetComponentData(bullet, bulletEntity);
     }
 
     private void ApplyVelocity(ref Translation translation)

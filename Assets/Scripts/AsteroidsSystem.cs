@@ -11,14 +11,13 @@ namespace DefaultNamespace
     {
         private NativeArray<AsteroidEntity> asteroidsData;
         private Random random;
-        private const int InitialAsteroidsCount = 50;
-        private const int asteroidsCapacity = 5000;
+        private const int InitialAsteroidsCount = 100;
         bool asteroidsInstantiated = false;
 
         protected override void OnCreate()
         {
             base.OnCreate();
-            asteroidsData = new NativeArray<AsteroidEntity>(asteroidsCapacity, Allocator.Persistent);
+            asteroidsData = new NativeArray<AsteroidEntity>(InitialAsteroidsCount, Allocator.Persistent);
             random = new Random(8979546);
         }
 
@@ -97,10 +96,14 @@ namespace DefaultNamespace
                                 if (math.length(bulletPosition - asteroidEntity.position) < 10f)
                                 {
                                     PostUpdateCommands.DestroyEntity(bulletEntity);
-                                    EntityManager.RemoveComponent<Translation>(bulletEntity);
-                                    
-                                    //TODO: create two smaller asteroids
+
                                     AsteroidEntity newAsteroidEntity = asteroidEntity;
+                                    if (newAsteroidEntity.scale < 500f)
+                                    {
+                                        PostUpdateCommands.DestroyEntity(entity);
+                                        return;
+                                    }
+                                    //TODO: create two smaller asteroids
                                     newAsteroidEntity.scale *= 0.5f;
                                     newAsteroidEntity.speed *= 1.5f;
                                     newAsteroidEntity.rotation = quaternion.AxisAngle(new float3(0, 0, 1), random.NextFloat(0f, 360f));

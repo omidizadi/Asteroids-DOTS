@@ -8,4 +8,7 @@ public struct GamePrefabsContainerEntity : IComponentData
 {
     public Entity asteroidPrefab;
     public Entity bulletPrefab;
+    public Entity powerUpShieldPrefab;
+    public Entity powerUpTripleShotPrefab;
+    
 }

@@ -24,10 +24,13 @@ namespace DefaultNamespace
             Entity spaceshipEntity = GetSingletonEntity<SpaceshipEntity>();
             Entities.WithAll<AsteroidEntity>().ForEach(asteroidEntity =>
             {
-                AsteroidEntity asteroid = EntityManager.GetComponentData<AsteroidEntity>(asteroidEntity);
                 SpaceshipEntity spaceship = EntityManager.GetComponentData<SpaceshipEntity>(spaceshipEntity);
-                //Vector3.Distance is not a good idea for performance, is it the same case for math.distance?
-                float distance = math.distance(spaceship.position, asteroid.position);
+                if (spaceship.powerUpType == PowerUpType.Shield)
+                {
+                    return;
+                }
+                AsteroidEntity asteroid = EntityManager.GetComponentData<AsteroidEntity>(asteroidEntity);
+                float distance = math.length(spaceship.position - asteroid.position);
                 //TODO: remove the magic number
                 if (distance < 20)
                 {

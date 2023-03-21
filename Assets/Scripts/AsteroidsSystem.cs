@@ -88,7 +88,7 @@ namespace DefaultNamespace
                         scale.Value = asteroidsData[entityIndex].scale;
                         EntityManager.SetComponentData(entity, asteroidsData[entityIndex]);
 
-                        float3 asteroidPosition = asteroidsData[entityIndex].position;
+                        float3 asteroidPosition = translation.Value;
                         //TODO: optimize this
                         Entities
                             .WithAll<BulletEntity, Translation>()
@@ -100,7 +100,9 @@ namespace DefaultNamespace
                                 {
                                     PostUpdateCommands.DestroyEntity(bulletEntity);
                                     PostUpdateCommands.DestroyEntity(entity);
-
+                                    EntityManager.RemoveComponent<Translation>(bulletEntity);
+                                    EntityManager.RemoveComponent<Translation>(entity);
+                                    
                                     //instantiate two new asteroids with a smaller scale moving in the same direction as the destroyed asteroid but in slightly different angles
                                     Entity gamePrefabsContainerEntity = GetSingletonEntity<GamePrefabsContainerEntity>();
                                     Entity asteroidPrefab = EntityManager.GetComponentData<GamePrefabsContainerEntity>(gamePrefabsContainerEntity).asteroidPrefab;

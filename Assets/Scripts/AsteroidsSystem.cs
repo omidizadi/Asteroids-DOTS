@@ -88,6 +88,7 @@ namespace DefaultNamespace
                         scale.Value = asteroidsData[entityIndex].scale;
                         EntityManager.SetComponentData(entity, asteroidsData[entityIndex]);
 
+                        //TODO: it is O(n^2) complexity, it should be O(nlogn) using KdTree
                         Entities
                             .WithAll<BulletEntity, Translation>()
                             .ForEach((Entity bulletEntity, ref Translation bulletTranslation) =>

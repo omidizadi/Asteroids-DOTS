@@ -39,6 +39,24 @@ namespace DefaultNamespace
                     defeatPanel.enabled = true;
                 }
             });
+
+            //TODO: can easily be unified with the previous loop by introducing a common interface
+            Entities.WithAll<BulletEnemyEntity>().ForEach(bulletEntity =>
+            {
+                SpaceshipEntity spaceship = EntityManager.GetComponentData<SpaceshipEntity>(spaceshipEntity);
+                if (spaceship.powerUpType == PowerUpType.Shield)
+                {
+                    return;
+                }
+                BulletEnemyEntity bullet = EntityManager.GetComponentData<BulletEnemyEntity>(bulletEntity);
+                float distance = math.length(spaceship.position - bullet.position);
+                if (distance < 20)
+                {
+                    PostUpdateCommands.DestroyEntity(bulletEntity);
+                    PostUpdateCommands.DestroyEntity(spaceshipEntity);
+                    defeatPanel.enabled = true;
+                }
+            });
         }
     }
 }

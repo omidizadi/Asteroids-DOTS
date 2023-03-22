@@ -21,6 +21,11 @@ namespace DefaultNamespace
                 CreateRandomPowerUp();
                 return;
             }
+
+            if (!HasSingleton<SpaceshipEntity>())
+            {
+                return;
+            }
             SpaceshipEntity spaceship = GetSingleton<SpaceshipEntity>();
             PowerUpEntity powerUp = GetSingleton<PowerUpEntity>();
             Entities

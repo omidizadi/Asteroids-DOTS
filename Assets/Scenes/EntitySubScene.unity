@@ -152,6 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3188b2602762626439f5e093b8dab357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spaceshipEnemyPrefab: {fileID: 1186565332520075906, guid: ad65c7433ff6d204180ef3a69500f609, type: 3}
+  bulletEnemyPrefab: {fileID: 7177463021553431166, guid: 553a4b1a75ded9e4384a50d149544c8e, type: 3}
   asteroidPrefab: {fileID: 8846943387123936771, guid: d8039ebf503c0ca4ca263884f39b87a4, type: 3}
   bulletPrefab: {fileID: 4055790621435341151, guid: a7ee81bc1bf701741a2852441e3d3f21, type: 3}
   powerUpShieldPrefab: {fileID: 1760505950362756638, guid: 35aec140d5508e54b9fff445d3fd43c8, type: 3}

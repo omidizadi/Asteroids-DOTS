@@ -7,16 +7,16 @@ namespace DefaultNamespace
         protected override void OnUpdate()
         {
             Entities
-                .WithAll<BulletEntity, Translation>()
+                .WithAll<OldBulletEntity, Translation>()
                 .ForEach((Entity bulletEntity, ref Translation translation) =>
                 {
-                    BulletEntity bullet = EntityManager.GetComponentData<BulletEntity>(bulletEntity);
-                    bullet.position += bullet.direction * bullet.speed * Time.DeltaTime;
-                    translation.Value = bullet.position;
-                    EntityManager.SetComponentData(bulletEntity, bullet);
+                    OldBulletEntity oldBullet = EntityManager.GetComponentData<OldBulletEntity>(bulletEntity);
+                    oldBullet.position += oldBullet.direction * oldBullet.speed * Time.DeltaTime;
+                    translation.Value = oldBullet.position;
+                    EntityManager.SetComponentData(bulletEntity, oldBullet);
                     
                     //TODO: replace magic numbers
-                    if (bullet.position.x > 1000 || bullet.position.x < -1000 || bullet.position.y > 1000 || bullet.position.y < -1000)
+                    if (oldBullet.position.x > 1000 || oldBullet.position.x < -1000 || oldBullet.position.y > 1000 || oldBullet.position.y < -1000)
                     {
                         PostUpdateCommands.DestroyEntity(bulletEntity);
                     }

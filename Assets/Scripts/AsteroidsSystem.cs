@@ -25,8 +25,8 @@ namespace DefaultNamespace
         {
             if (!asteroidsInstantiated)
             {
-                Entity gamePrefabsContainerEntity = GetSingletonEntity<GamePrefabsContainerEntity>();
-                Entity asteroidPrefab = EntityManager.GetComponentData<GamePrefabsContainerEntity>(gamePrefabsContainerEntity).asteroidPrefab;
+                Entity gamePrefabsContainerEntity = GetSingletonEntity<GamePrefabsSingleton>();
+                Entity asteroidPrefab = EntityManager.GetComponentData<GamePrefabsSingleton>(gamePrefabsContainerEntity).asteroidPrefab;
 
                 for (int i = 0; i < InitialAsteroidsCount; i++)
                 {
@@ -90,7 +90,7 @@ namespace DefaultNamespace
 
                         //TODO: it is O(n^2) complexity, it should be O(nlogn) using KdTree
                         Entities
-                            .WithAll<BulletEntity, Translation>()
+                            .WithAll<OldBulletEntity, Translation>()
                             .ForEach((Entity bulletEntity, ref Translation bulletTranslation) =>
                             {
                                 float3 bulletPosition = bulletTranslation.Value;

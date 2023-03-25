@@ -44,7 +44,7 @@ namespace DefaultNamespace
         }
         private void CreateRandomPowerUp()
         {
-            GamePrefabsContainerEntity prefabContainer = GetSingleton<GamePrefabsContainerEntity>();
+            GamePrefabsSingleton prefabContainer = GetSingleton<GamePrefabsSingleton>();
             PowerUpType powerUpType = (PowerUpType)random.NextInt(1, 3);
             Entity powerUpPrefab = powerUpType == PowerUpType.Shield ? prefabContainer.powerUpShieldPrefab : prefabContainer.powerUpTripleShotPrefab;
             float3 powerUpPosition = new float3(random.NextFloat(-100, 100), random.NextFloat(-100, 100), 0);

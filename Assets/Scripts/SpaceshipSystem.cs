@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 public class SpaceshipSystem : ComponentSystem
 {
     private InputAction moveAction;
-    private InputAction fireAction;
 
     public float speed = 2.5f;    // speed of object
     public float friction = 1.5f; // amount of friction to apply to slow down object
@@ -16,7 +15,6 @@ public class SpaceshipSystem : ComponentSystem
     {
         // Create input actions for move and fire
         moveAction = new InputAction("move", binding: "<Keyboard>/wasd");
-        fireAction = new InputAction("fire", binding: "<Mouse>/leftButton");
         moveAction.AddCompositeBinding("Dpad")
             .With("Up", "<Keyboard>/w")
             .With("Down", "<Keyboard>/s")
@@ -24,14 +22,12 @@ public class SpaceshipSystem : ComponentSystem
             .With("Right", "<Keyboard>/d");
         // Enable input actions
         moveAction.Enable();
-        fireAction.Enable();
     }
 
     protected override void OnDestroy()
     {
         // Disable input actions
         moveAction.Disable();
-        fireAction.Disable();
     }
 
     protected override void OnUpdate()
@@ -51,31 +47,8 @@ public class SpaceshipSystem : ComponentSystem
                 spaceshipEntity.rotation = rotation.Value;
                 EntityManager.SetComponentData(entity, spaceshipEntity);
 
-                // Check fire input
-                if (fireAction.triggered)
-                {
-                    Entity gamePrefabsContainerEntity = GetSingletonEntity<GamePrefabsContainerEntity>();
-                    Entity bulletPrefab = EntityManager.GetComponentData<GamePrefabsContainerEntity>(gamePrefabsContainerEntity).bulletPrefab;
-
-
-                    CreateNewBullet(bulletPrefab, translation, rotation);
-                    if (spaceshipEntity.powerUpType == PowerUpType.TripleShot)
-                    {
-                        CreateNewBullet(bulletPrefab, translation, rotation, 30);
-                        CreateNewBullet(bulletPrefab, translation, rotation, -30);
-                    }
-                }
+               
             });
-    }
-    private void CreateNewBullet(Entity bulletPrefab, Translation translation, Rotation rotation, int angle = 0)
-    {
-        Entity bullet = EntityManager.Instantiate(bulletPrefab);
-        BulletEntity bulletEntity = EntityManager.GetComponentData<BulletEntity>(bullet);
-        bulletEntity.position = translation.Value;
-        bulletEntity.direction = math.mul(quaternion.AxisAngle(math.forward(), math.radians(angle)), math.forward(rotation.Value));
-        //TODO: modify the speed of the bullet based on the spaceship's speed
-        bulletEntity.speed = 200;
-        EntityManager.SetComponentData(bullet, bulletEntity);
     }
 
     private void ApplyVelocity(ref Translation translation)

@@ -3,7 +3,7 @@ using Unity.Mathematics;
 namespace DefaultNamespace
 {
     [GenerateAuthoringComponent]
-    public struct BulletEntity: IComponentData
+    public struct OldBulletEntity: IComponentData
     {
         public float3 position;
         public float3 direction;

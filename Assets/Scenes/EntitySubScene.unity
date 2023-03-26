@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 889383597}
   - component: {fileID: 889383596}
   m_Layer: 0
-  m_Name: PrefabsContainer
+  m_Name: GamePrefabs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -153,9 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spaceshipEnemyPrefab: {fileID: 1186565332520075906, guid: ad65c7433ff6d204180ef3a69500f609, type: 3}
-  spaceshipPlayerPrefab: {fileID: 7730143727936867438}
   bulletEnemyPrefab: {fileID: 7177463021553431166, guid: 553a4b1a75ded9e4384a50d149544c8e, type: 3}
-  bulletPrefab: {fileID: 4055790621435341151, guid: a7ee81bc1bf701741a2852441e3d3f21, type: 3}
   asteroidPrefab: {fileID: 8846943387123936771, guid: d8039ebf503c0ca4ca263884f39b87a4, type: 3}
   powerUpShieldPrefab: {fileID: 1760505950362756638, guid: 35aec140d5508e54b9fff445d3fd43c8, type: 3}
   powerUpTripleShotPrefab: {fileID: 6363047136935871139, guid: 4b98dea0e7e1da04eadea6159b048dec, type: 3}
@@ -172,6 +170,62 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1727101520
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1727101522}
+  - component: {fileID: 1727101521}
+  m_Layer: 0
+  m_Name: GameSettings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1727101521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727101520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b47b6a2a082402d8672acbffbf9f040, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  asteroidsCount: 100
+  asteroidRotationSpeedRange:
+    x: 1
+    y: 2
+  asteroidSpeedRange:
+    x: 10
+    y: 20
+  asteroidDirectionRange:
+    x: -1
+    y: 1
+  asteroidSpawnRange:
+    x: 150
+    y: 500
+--- !u!4 &1727101522
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727101520}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &7730143727936867437
 PrefabInstance:

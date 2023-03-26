@@ -26,8 +26,8 @@ namespace Modules.Spaceship.Runtime.Scripts
                 .WithAll<PlayerSpaceshipTag, MovementComponent, MovementConfig>()
                 .ForEach((ref MovementComponent movementComponent, ref MovementConfig movementConfig) =>
                 {
-                    movementComponent.SetConfig(movementConfig);
-                    movementComponent.SetDirection(moveAction.ReadValue<Vector2>());
+                    movementComponent.UpdateConfig(movementConfig);
+                    movementComponent.UpdateDirection(moveAction.ReadValue<Vector2>());
                 });
         }
         protected override void OnDestroy()

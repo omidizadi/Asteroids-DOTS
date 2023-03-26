@@ -13,6 +13,7 @@ namespace DefaultNamespace.Systems
     /// </summary>
     public class ShooterSystem : ComponentSystem
     {
+        //TODO: The shooter system should not be responsible for the input
         private InputAction fireInputAction;
 
         protected override void OnCreate()
@@ -27,9 +28,14 @@ namespace DefaultNamespace.Systems
                 .WithAll<ShooterComponent, ShooterConfig, Translation, Rotation>()
                 .ForEach((Entity entity, ref ShooterComponent shooterComponent, ref ShooterConfig config, ref Translation translation, ref Rotation rotation) =>
                 {
-                    shooterComponent.SetPosition(translation.Value);
-                    shooterComponent.SetRotation(rotation.Value);
-                    shooterComponent.Shoot(EntityManager, config, Time.DeltaTime, fireInputAction.triggered);
+                    //TODO: this can potentially be refactored to have less parameters
+                    shooterComponent.Shoot(
+                        EntityManager,
+                        config,
+                        translation.Value,
+                        rotation.Value,
+                        Time.DeltaTime,
+                        fireInputAction.triggered);
                 });
         }
 

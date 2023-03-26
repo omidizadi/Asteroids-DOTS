@@ -22,32 +22,20 @@ namespace DefaultNamespace.Components
         private float timeSinceLastShot;
 
         /// <summary>
-        /// Updates the position of the shooter.
-        /// </summary>
-        /// <param name="position">The new position of the shooter.</param>
-        public void SetPosition(float3 position)
-        {
-            this.position = position;
-        }
-
-        /// <summary>
-        /// Updates the rotation of the shooter.
-        /// </summary>
-        /// <param name="rotation">The new rotation of the shooter.</param>
-        public void SetRotation(quaternion rotation)
-        {
-            this.rotation = rotation;
-        }
-
-        /// <summary>
         /// Shoots a bullet.
         /// </summary>
         /// <param name="entityManager">The EntityManager that manages the entities in the game.</param>
         /// <param name="config">The configuration settings for the shooter.</param>
+        /// <param name="shooterPosition">The position of the shooter</param>
+        /// <param name="shooterRotation">The rotation of the shooter</param>
         /// <param name="deltaTime">The delta time in the game.</param>
         /// <param name="fireInput">Whether the fire button is pressed or not. Only used for manual shooting</param>
-        public void Shoot(EntityManager entityManager, ShooterConfig config, float deltaTime, bool fireInput)
+        public void Shoot(EntityManager entityManager, ShooterConfig config, float3 shooterPosition, quaternion shooterRotation, float deltaTime, bool fireInput)
         {
+            // Update the initial position and rotation of the shooter
+            this.position = shooterPosition;
+            this.rotation = shooterRotation;
+
             // If the shooter is in manual fire mode, check if the fire button is pressed
             if (config.autoFireMode == AutoFireMode.Manual)
             {
@@ -92,20 +80,14 @@ namespace DefaultNamespace.Components
                 // Calculate the angle of the bullet
                 float angle = (config.bulletsCount - 1) * 10 / 2f - i * 10;
 
+                // Calculate the direction of the bullet
+                float3 direction = math.mul(quaternion.AxisAngle(math.forward(), math.radians(angle)), math.forward(rotation));
+
                 // Create movement config for the bullet
-                MovementConfig movementConfig = new MovementConfig()
-                {
-                    friction = 0,
-                    speed = config.bulletSpeed,
-                    acceleration = 0
-                };
+                MovementConfig movementConfig = new MovementConfig(config.bulletSpeed, 0f, 0f);
 
                 // Set the bullet's movement properties
-                MovementComponent movementComponent = entityManager.GetComponentData<MovementComponent>(bullet);
-                float3 direction = math.mul(quaternion.AxisAngle(math.forward(), math.radians(angle)), math.forward(rotation));
-                movementComponent.SetConfig(movementConfig);
-                movementComponent.SetPosition(position);
-                movementComponent.SetDirection(direction);
+                MovementComponent movementComponent = new MovementComponent(movementConfig, position, direction);
                 entityManager.SetComponentData(bullet, movementComponent);
             }
         }

@@ -8,11 +8,9 @@ public struct GamePrefabsSingleton : IComponentData
 {
     [Header("Spaceships")]
     public Entity spaceshipEnemyPrefab;
-    public Entity spaceshipPlayerPrefab;
 
     [Header("Bullets")]
     public Entity bulletEnemyPrefab;
-    public Entity bulletPrefab;
 
     [Header("Asteroids")]
     public Entity asteroidPrefab;

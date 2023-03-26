@@ -42,7 +42,7 @@ namespace Modules.HyperTravel.Runtime.Scripts
                     {
                         position.x = screenLeft;
                     }
-                    movementComponent.SetPosition(position);
+                    movementComponent.UpdatePosition(position);
                 });
         }
     }

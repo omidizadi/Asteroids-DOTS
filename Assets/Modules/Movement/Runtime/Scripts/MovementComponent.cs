@@ -12,32 +12,41 @@ namespace Modules.Mover.Runtime.Scripts
     {
         //config
         private MovementConfig config;
-        
+
         //properties
         public float3 Position => position;
+        public float3 Direction => direction;
 
         //logic
         private float3 position;
         private float3 direction;
         private float3 velocity;
 
+        public MovementComponent(MovementConfig config, float3 position, float3 direction)
+        {
+            this.config = config;
+            this.position = position;
+            this.direction = direction;
+            velocity = default(float3);
+        }
 
-        public void SetConfig(MovementConfig config)
+
+        public void UpdateConfig(MovementConfig config)
         {
             this.config = config;
         }
 
-        public void SetPosition(float3 position)
+        public void UpdatePosition(float3 position)
         {
             this.position = position;
         }
 
-        public void SetDirection(float3 direction)
+        public void UpdateDirection(float3 direction)
         {
             this.direction = direction;
         }
 
-        public void SetDirection(Vector2 direction)
+        public void UpdateDirection(Vector2 direction)
         {
             Debug.Log(direction);
             this.direction = new float3(direction.x, direction.y, 0f);
@@ -57,6 +66,7 @@ namespace Modules.Mover.Runtime.Scripts
             position += velocity;
             return position;
         }
+        
         private void HandleVelocity(float deltaTime)
         {
             float3 move = new float3(direction.x, direction.y, 0f);

@@ -2,6 +2,9 @@
 using Unity.Transforms;
 namespace Modules.Rotator.Runtime.Scripts
 {
+    /// <summary>
+    /// Responsible for rotating the entity.
+    /// </summary>
     public class RotationSystem : ComponentSystem
     {
         protected override void OnUpdate()

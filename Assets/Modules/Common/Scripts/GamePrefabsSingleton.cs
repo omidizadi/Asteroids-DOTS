@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 
+/// <summary>
+/// Provides access to all prefabs in the game
+/// </summary>
 [GenerateAuthoringComponent]
 public struct GamePrefabsSingleton : IComponentData
 {
     [Header("Spaceships")]
     public Entity spaceshipEnemyPrefab;
-
-    [Header("Bullets")]
-    public Entity bulletEnemyPrefab;
 
     [Header("Asteroids")]
     public Entity asteroidPrefab;
@@ -18,4 +16,5 @@ public struct GamePrefabsSingleton : IComponentData
     [Header("PowerUps")]
     public Entity powerUpShieldPrefab;
     public Entity powerUpTripleShotPrefab;
+    public Entity powerUpBulletSpeedPrefab;
 }

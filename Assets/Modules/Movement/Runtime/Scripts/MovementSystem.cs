@@ -1,6 +1,5 @@
 ﻿using Unity.Entities;
 using Unity.Transforms;
-using UnityEngine.InputSystem;
 namespace Modules.Mover.Runtime.Scripts
 {
     /// <summary>

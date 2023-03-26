@@ -1,7 +1,9 @@
 ﻿using Unity.Entities;
-using Unity.Mathematics;
 namespace Modules.Rotator.Runtime.Scripts
 {
+    /// <summary>
+    /// The configuration for the rotator component.
+    /// </summary>
     [GenerateAuthoringComponent]
     public struct RotatorConfig : IComponentData
     {

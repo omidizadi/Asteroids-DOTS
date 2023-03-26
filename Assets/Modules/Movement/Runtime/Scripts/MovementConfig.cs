@@ -1,6 +1,9 @@
 ﻿using Unity.Entities;
 namespace Modules.Mover.Runtime.Scripts
 {
+    /// <summary>
+    /// Holds the configuration for the movement of an entity.
+    /// </summary>
     [GenerateAuthoringComponent]
     public struct MovementConfig : IComponentData
     {

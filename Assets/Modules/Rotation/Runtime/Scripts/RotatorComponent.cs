@@ -2,6 +2,9 @@
 using Unity.Mathematics;
 namespace Modules.Rotator.Runtime.Scripts
 {
+    /// <summary>
+    /// An entity with this component will rotate facing its direction
+    /// </summary>
     [GenerateAuthoringComponent]
     public struct RotatorComponent : IComponentData
     {

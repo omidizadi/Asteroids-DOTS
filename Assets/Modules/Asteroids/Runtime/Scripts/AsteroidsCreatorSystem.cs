@@ -1,6 +1,6 @@
 ﻿using Modules.Common.Scripts;
-using Modules.Mover.Runtime.Scripts;
-using Modules.Rotator.Runtime.Scripts;
+using Modules.Movement.Runtime.Scripts;
+using Modules.Rotation.Runtime.Scripts;
 using Unity.Entities;
 using Unity.Mathematics;
 namespace Modules.Asteroids.Runtime.Scripts

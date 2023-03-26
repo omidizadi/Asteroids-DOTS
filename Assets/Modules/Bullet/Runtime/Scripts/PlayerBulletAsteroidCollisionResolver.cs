@@ -1,9 +1,10 @@
-﻿using Modules.Common.Scripts;
-using Modules.Mover.Runtime.Scripts;
+﻿using Modules.Collision.Runtime.Scripts;
+using Modules.Common.Scripts;
+using Modules.Movement.Runtime.Scripts;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
-namespace DefaultNamespace.Entities
+namespace Modules.Bullet.Runtime.Scripts
 {
     /// <summary>
     /// Provides a method to resolve the collision between a player bullet and an asteroid

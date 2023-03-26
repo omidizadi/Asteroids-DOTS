@@ -1,5 +1,5 @@
 ﻿using Unity.Entities;
-namespace Modules.Spaceship.Runtime.Scripts
+namespace Modules.PlayerSpaceship.Runtime.Scripts
 {
     /// <summary>
     /// The tag for the player spaceship.

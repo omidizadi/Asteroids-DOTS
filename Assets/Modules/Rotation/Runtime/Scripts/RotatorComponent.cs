@@ -1,6 +1,6 @@
 ﻿using Unity.Entities;
 using Unity.Mathematics;
-namespace Modules.Rotator.Runtime.Scripts
+namespace Modules.Rotation.Runtime.Scripts
 {
     /// <summary>
     /// An entity with this component will rotate facing its direction

@@ -1,5 +1,5 @@
 ﻿using Modules.Collision.Runtime.Scripts;
-using Modules.Spaceship.Runtime.Scripts;
+using Modules.PlayerSpaceship.Runtime.Scripts;
 using Unity.Entities;
 using UnityEngine;
 namespace Modules.GameState.Runtime.Scripts

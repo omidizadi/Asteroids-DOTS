@@ -1,4 +1,4 @@
-﻿using Modules.Mover.Runtime.Scripts;
+﻿using Modules.Movement.Runtime.Scripts;
 using Unity.Mathematics;
 namespace Modules.Common.Scripts
 {

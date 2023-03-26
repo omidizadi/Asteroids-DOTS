@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace
+﻿namespace Modules.PowerUp.Runtime.Scripts
 {
     /// <summary>
     /// Different types of power ups.

@@ -1,5 +1,5 @@
 ﻿using Unity.Entities;
-namespace Modules.Rotator.Runtime.Scripts
+namespace Modules.Rotation.Runtime.Scripts
 {
     /// <summary>
     /// The configuration for the rotator component.

@@ -1,6 +1,6 @@
 ﻿using Unity.Entities;
 using Unity.Transforms;
-namespace Modules.Mover.Runtime.Scripts
+namespace Modules.Movement.Runtime.Scripts
 {
     /// <summary>
     /// Responsible for destroying entities that are out of bounds to save performance.

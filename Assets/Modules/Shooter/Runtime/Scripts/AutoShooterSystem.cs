@@ -1,6 +1,4 @@
-﻿using DefaultNamespace.Components;
-using DefaultNamespace.Configs;
-using Modules.Spaceship.Runtime.Scripts;
+﻿using Modules.PlayerSpaceship.Runtime.Scripts;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -14,8 +12,8 @@ namespace Modules.Shooter.Runtime.Scripts
         protected override void OnUpdate()
         {
             Entities
-                .WithAll<ShooterComponent, ShooterConfig, Translation, Rotation>()
-                .ForEach((Entity entity, ref ShooterComponent shooterComponent, ref ShooterConfig config, ref Translation translation, ref Rotation rotation) =>
+                .WithAll<ShooterComponent, ShooterConfig, Translation, Unity.Transforms.Rotation>()
+                .ForEach((Entity entity, ref ShooterComponent shooterComponent, ref ShooterConfig config, ref Translation translation, ref Unity.Transforms.Rotation rotation) =>
                 {
                     if (config.fireMode == FireMode.Auto)
                     {
@@ -30,7 +28,7 @@ namespace Modules.Shooter.Runtime.Scripts
                 });
         }
 
-        private quaternion CalculateSpaceshipRotation(Rotation rotation, ShooterConfig config, Translation translation)
+        private quaternion CalculateSpaceshipRotation(Unity.Transforms.Rotation rotation, ShooterConfig config, Translation translation)
         {
             quaternion newRotation = rotation.Value;
             if (config.autoFireTarget == AutoFireTarget.PlayerSpaceship)

@@ -14,30 +14,29 @@ namespace DefaultNamespace.Components
     /// Represents a shooter component that can shoot a bullet in the game.
     /// </summary>
     [GenerateAuthoringComponent]
-    public struct SingleShooterComponent : IComponentData, IShooterComponent
+    public struct ShooterComponent : IComponentData
     {
-        /// <summary>
-        /// The position of the shooter.
-        /// </summary>
-        public float3 Position { get; set; }
-
-        /// <summary>
-        /// The rotation of the shooter.
-        /// </summary>
-        public quaternion Rotation { get; set; }
-
-        // Logic for determining when to shoot next
+        //logic
+        private float3 position;
+        private quaternion rotation;
         private float timeSinceLastShot;
 
         /// <summary>
-        /// Updates the position and rotation of the shooter.
+        /// Updates the position of the shooter.
         /// </summary>
         /// <param name="position">The new position of the shooter.</param>
-        /// <param name="rotation">The new rotation of the shooter.</param>
-        public void Update(float3 position, quaternion rotation)
+        public void SetPosition(float3 position)
         {
-            Position = position;
-            Rotation = rotation;
+            this.position = position;
+        }
+
+        /// <summary>
+        /// Updates the rotation of the shooter.
+        /// </summary>
+        /// <param name="rotation">The new rotation of the shooter.</param>
+        public void SetRotation(quaternion rotation)
+        {
+            this.rotation = rotation;
         }
 
         /// <summary>
@@ -83,17 +82,32 @@ namespace DefaultNamespace.Components
         private void Shoot(EntityManager entityManager, ShooterConfig config)
         {
             // Check for null references
-            SanityCheck.NullCheck(config.bulletEntityPrefab, nameof(config.bulletEntityPrefab), nameof(SingleShooterComponent));
+            SanityCheck.NullCheck(config.bulletEntityPrefab, nameof(config.bulletEntityPrefab), nameof(ShooterComponent));
 
-            // Instantiate a bullet entity
-            Entity bullet = entityManager.Instantiate(config.bulletEntityPrefab);
+            for (int i = 0; i < config.bulletsCount; i++)
+            {
+                // Instantiate a bullet entity
+                Entity bullet = entityManager.Instantiate(config.bulletEntityPrefab);
 
-            // Set the bullet's movement properties
-            MovementComponent movementComponent = entityManager.GetComponentData<MovementComponent>(bullet);
-            movementComponent.Position = Position;
-            movementComponent.Direction = math.forward(Rotation);
-            movementComponent.Speed = config.bulletSpeed;
-            entityManager.SetComponentData(bullet, movementComponent);
+                // Calculate the angle of the bullet
+                float angle = (config.bulletsCount - 1) * 10 / 2f - i * 10;
+
+                // Create movement config for the bullet
+                MovementConfig movementConfig = new MovementConfig()
+                {
+                    friction = 0,
+                    speed = config.bulletSpeed,
+                    acceleration = 0
+                };
+
+                // Set the bullet's movement properties
+                MovementComponent movementComponent = entityManager.GetComponentData<MovementComponent>(bullet);
+                float3 direction = math.mul(quaternion.AxisAngle(math.forward(), math.radians(angle)), math.forward(rotation));
+                movementComponent.SetConfig(movementConfig);
+                movementComponent.SetPosition(position);
+                movementComponent.SetDirection(direction);
+                entityManager.SetComponentData(bullet, movementComponent);
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ namespace DefaultNamespace.Configs
     {
         public Entity bulletEntityPrefab;
         public AutoFireMode autoFireMode;
+        public int bulletsCount;
         public float bulletSpeed;
         public float timeBetweenShots;
     }

@@ -1,5 +1,6 @@
 ﻿using Unity.Entities;
 using Unity.Transforms;
+using UnityEngine.InputSystem;
 namespace Modules.Mover.Runtime.Scripts
 {
     /// <summary>
@@ -13,8 +14,7 @@ namespace Modules.Mover.Runtime.Scripts
                 .WithAll<MovementComponent, Translation>()
                 .ForEach((ref MovementComponent movementComponent, ref Translation translation) =>
                 {
-                    movementComponent.Move(Time.DeltaTime);
-                    translation.Value = movementComponent.Position;
+                    translation.Value = movementComponent.Move(Time.DeltaTime);
                 });
         }
     }

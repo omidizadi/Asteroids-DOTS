@@ -2,7 +2,7 @@
 namespace Modules.Spaceship.Runtime.Scripts
 {
     [GenerateAuthoringComponent]
-    public struct PlayerSpaceshipEntity : IComponentData
+    public struct PlayerSpaceshipTag : IComponentData
     {
     }
 }

@@ -107,12 +107,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba9794d33824e499f84b418db3a208d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position:
-    x: 0
-    y: 0
-    z: 0
-  direction:
-    x: 0
-    y: 0
-    z: 0
-  speed: 0

@@ -23,13 +23,13 @@ namespace DefaultNamespace.Systems
         }
         protected override void OnUpdate()
         {
-            //TODO: somehow unify the query for all IShooterComponents
             Entities
-                .WithAll<SingleShooterComponent, ShooterConfig, Translation, Rotation>()
-                .ForEach((Entity entity, ref SingleShooterComponent singleShooterComponent, ref ShooterConfig config, ref Translation translation, ref Rotation rotation) =>
+                .WithAll<ShooterComponent, ShooterConfig, Translation, Rotation>()
+                .ForEach((Entity entity, ref ShooterComponent shooterComponent, ref ShooterConfig config, ref Translation translation, ref Rotation rotation) =>
                 {
-                    singleShooterComponent.Update(translation.Value, rotation.Value);
-                    singleShooterComponent.Shoot(EntityManager, config, Time.DeltaTime, fireInputAction.triggered);
+                    shooterComponent.SetPosition(translation.Value);
+                    shooterComponent.SetRotation(rotation.Value);
+                    shooterComponent.Shoot(EntityManager, config, Time.DeltaTime, fireInputAction.triggered);
                 });
         }
 

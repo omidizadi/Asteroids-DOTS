@@ -4,9 +4,11 @@ using Modules.Common.Scripts;
 using Modules.PowerUp.Runtime.Scripts;
 using Modules.Spaceship.Runtime.Scripts;
 using Unity.Entities;
-using UnityEngine;
 namespace Modules.Collision.Runtime.Scripts
 {
+    /// <summary>
+    /// Resolves the collision between entities after the collision detection has been done
+    /// </summary>
     [UpdateAfter(typeof(CollisionDetectionSystem))]
     public class CollisionResolveSystem : ComponentSystem
     {

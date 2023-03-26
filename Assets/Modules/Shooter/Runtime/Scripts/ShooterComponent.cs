@@ -1,13 +1,8 @@
-﻿using System;
-using System.Reflection;
-using DefaultNamespace.Configs;
-using DefaultNamespace.Entities;
+﻿using DefaultNamespace.Configs;
 using Modules.Common.Scripts;
 using Modules.Mover.Runtime.Scripts;
-using Unity.Core;
 using Unity.Entities;
 using Unity.Mathematics;
-using UnityEngine;
 namespace DefaultNamespace.Components
 {
     /// <summary>
@@ -35,17 +30,21 @@ namespace DefaultNamespace.Components
             position = shooterPosition;
             rotation = shooterRotation;
 
-            // If the shooter is in manual fire mode, check if the fire button is pressed
-            if (config.autoFireMode == AutoFireMode.Manual)
+            // Check if the fire button is pressed
+            if (fireInput)
             {
-                if (fireInput)
-                {
-                    // Shoot a bullet
-                    Shoot(entityManager, config);
-                }
+                Shoot(entityManager, config);
             }
         }
 
+        /// <summary>
+        /// Shoots a bullet automatically based on the time between shots.
+        /// </summary>
+        /// <param name="entityManager">The EntityManager that manages the entities in the game.</param>
+        /// <param name="config">The configuration settings for the shooter.</param>
+        /// <param name="shooterPosition">The position of the shooter</param>
+        /// <param name="shooterRotation">The rotation of the shooter</param>
+        /// <param name="deltaTime">The time since the last frame.</param>
         public void ShootAuto(EntityManager entityManager, ShooterConfig config, float3 shooterPosition, quaternion shooterRotation, float deltaTime)
         {
             // Update the initial position and rotation of the shooter
@@ -76,7 +75,8 @@ namespace DefaultNamespace.Components
                 Entity bullet = entityManager.Instantiate(config.bulletEntityPrefab);
 
                 // Calculate the angle of the bullet
-                float angle = (config.bulletsCount - 1) * 10 / 2f - i * 10;
+                const int angleOffset = 10;
+                float angle = (config.bulletsCount - 1) * angleOffset / 2f - i * angleOffset;
 
                 // Calculate the direction of the bullet
                 float3 direction = math.mul(quaternion.AxisAngle(math.forward(), math.radians(angle)), math.forward(rotation));

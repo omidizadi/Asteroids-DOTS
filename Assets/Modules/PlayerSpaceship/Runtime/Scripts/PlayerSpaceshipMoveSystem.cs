@@ -1,10 +1,12 @@
 ﻿using Modules.Mover.Runtime.Scripts;
 using Unity.Entities;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 namespace Modules.Spaceship.Runtime.Scripts
 {
+    /// <summary>
+    /// Responsible for moving the player spaceship using the keyboard.
+    /// </summary>
     public class PlayerSpaceshipMoveSystem : ComponentSystem
     {
         private InputAction moveAction;

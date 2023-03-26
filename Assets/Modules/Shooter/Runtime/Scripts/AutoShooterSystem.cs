@@ -4,9 +4,11 @@ using Modules.Spaceship.Runtime.Scripts;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
-using UnityEngine;
 namespace Modules.Shooter.Runtime.Scripts
 {
+    /// <summary>
+    /// Responsible for shooting the auto fire mode shooter components.
+    /// </summary>
     public class AutoShooterSystem : ComponentSystem
     {
         protected override void OnUpdate()
@@ -15,7 +17,7 @@ namespace Modules.Shooter.Runtime.Scripts
                 .WithAll<ShooterComponent, ShooterConfig, Translation, Rotation>()
                 .ForEach((Entity entity, ref ShooterComponent shooterComponent, ref ShooterConfig config, ref Translation translation, ref Rotation rotation) =>
                 {
-                    if (config.autoFireMode == AutoFireMode.Auto)
+                    if (config.fireMode == FireMode.Auto)
                     {
                         quaternion newRotation = CalculateSpaceshipRotation(rotation, config, translation);
                         shooterComponent.ShootAuto(

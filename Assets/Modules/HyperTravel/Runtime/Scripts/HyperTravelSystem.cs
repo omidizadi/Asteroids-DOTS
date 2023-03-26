@@ -4,6 +4,9 @@ using Unity.Mathematics;
 using UnityEngine;
 namespace Modules.HyperTravel.Runtime.Scripts
 {
+    /// <summary>
+    /// Responsible for moving entities with the <see cref="HyperTravelerTag"/> tag out of the screen and back in.
+    /// </summary>
     [UpdateAfter(typeof(MovementSystem))]
     public class HyperTravelSystem : ComponentSystem
     {
@@ -19,7 +22,10 @@ namespace Modules.HyperTravel.Runtime.Scripts
                 .WithAll<HyperTravelerTag, MovementComponent>()
                 .ForEach((ref MovementComponent movementComponent) =>
                 {
+                    
                     float3 position = movementComponent.Position;
+                    
+                    // Get the screen bounds
                     float screenTop = mainCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y;
                     float screenBottom = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y;
                     float screenLeft = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;

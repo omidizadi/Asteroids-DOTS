@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using DefaultNamespace.Components;
+﻿using DefaultNamespace.Components;
 using DefaultNamespace.Configs;
 using Unity.Entities;
 using Unity.Transforms;
-using UnityEngine;
 using UnityEngine.InputSystem;
 namespace DefaultNamespace.Systems
 {
@@ -13,7 +10,6 @@ namespace DefaultNamespace.Systems
     /// </summary>
     public class ManualShooterSystem : ComponentSystem
     {
-        //TODO: The shooter system should not be responsible for the input
         private InputAction fireInputAction;
 
         protected override void OnCreate()
@@ -28,7 +24,7 @@ namespace DefaultNamespace.Systems
                 .WithAll<ShooterComponent, ShooterConfig, Translation, Rotation>()
                 .ForEach((Entity entity, ref ShooterComponent shooterComponent, ref ShooterConfig config, ref Translation translation, ref Rotation rotation) =>
                 {
-                    if (config.autoFireMode == AutoFireMode.Manual)
+                    if (config.fireMode == FireMode.Manual)
                     {
                         shooterComponent.ShootManual(
                             EntityManager,

@@ -1,5 +1,8 @@
 ﻿namespace DefaultNamespace
 {
+    /// <summary>
+    /// Different types of power ups.
+    /// </summary>
     public enum PowerUpType
     {
         None = 0,

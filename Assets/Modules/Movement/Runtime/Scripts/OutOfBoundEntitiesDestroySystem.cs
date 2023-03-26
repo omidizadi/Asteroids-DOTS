@@ -2,6 +2,9 @@
 using Unity.Transforms;
 namespace Modules.Mover.Runtime.Scripts
 {
+    /// <summary>
+    /// Responsible for destroying entities that are out of bounds to save performance.
+    /// </summary>
     public class OutOfBoundEntitiesDestroySystem : ComponentSystem
     {
         protected override void OnUpdate()
@@ -10,7 +13,8 @@ namespace Modules.Mover.Runtime.Scripts
                 .WithAll<MovementComponent, Translation>()
                 .ForEach((Entity entity, ref Translation translation) =>
                 {
-                    if (translation.Value.x > 700 || translation.Value.x < -700 || translation.Value.y > 700 || translation.Value.y < -700)
+                    const float maxDistance = 650;
+                    if (translation.Value.x > maxDistance || translation.Value.x < -maxDistance || translation.Value.y > maxDistance || translation.Value.y < -maxDistance)
                     {
                         EntityManager.DestroyEntity(entity);
                     }

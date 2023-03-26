@@ -5,6 +5,9 @@ using Modules.PowerUp.Runtime.Scripts;
 using Unity.Entities;
 namespace Modules.Spaceship.Runtime.Scripts
 {
+    /// <summary>
+    /// Provides the logic for resolving the collision between the player spaceship and a power up.
+    /// </summary>
     public static class PlayerSpaceshipPowerUpCollisionResolver
     {
         public static void Resolve(EntityManager entityManager, Entity playerSpaceshipEntity, Entity powerUpEntity)
@@ -43,7 +46,9 @@ namespace Modules.Spaceship.Runtime.Scripts
         {
             if (entityManager.HasComponent<CollisionComponent>(playerSpaceshipEntity))
             {
-                entityManager.GetComponentData<CollisionComponent>(playerSpaceshipEntity).Enable();
+                CollisionComponent collision = entityManager.GetComponentData<CollisionComponent>(playerSpaceshipEntity);
+                collision.Enable();
+                entityManager.SetComponentData(playerSpaceshipEntity, collision);
             }
         }
 
@@ -71,7 +76,9 @@ namespace Modules.Spaceship.Runtime.Scripts
         {
             if (entityManager.HasComponent<CollisionComponent>(playerSpaceshipEntity))
             {
-                entityManager.GetComponentData<CollisionComponent>(playerSpaceshipEntity).Disable();
+                CollisionComponent collision = entityManager.GetComponentData<CollisionComponent>(playerSpaceshipEntity);
+                collision.Disable();
+                entityManager.SetComponentData(playerSpaceshipEntity, collision);
             }
         }
     }

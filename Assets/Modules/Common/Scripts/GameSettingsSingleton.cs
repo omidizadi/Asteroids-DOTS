@@ -3,6 +3,9 @@ using Unity.Mathematics;
 using UnityEngine;
 namespace Modules.Common.Scripts
 {
+    /// <summary>
+    /// Provides access to all settings in the game
+    /// </summary>
     [GenerateAuthoringComponent]
     public struct GameSettingsSingleton : IComponentData
     {

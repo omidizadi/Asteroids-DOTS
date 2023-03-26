@@ -195,10 +195,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletEntityPrefab: {fileID: 7177463021553431166, guid: 553a4b1a75ded9e4384a50d149544c8e, type: 3}
   autoFireTarget: 1
-  autoFireMode: 1
+  fireMode: 1
   bulletsCount: 1
   bulletSpeed: 150
-  timeBetweenShots: 2
+  timeBetweenShots: 4
 --- !u!114 &2669954955834054040
 MonoBehaviour:
   m_ObjectHideFlags: 0

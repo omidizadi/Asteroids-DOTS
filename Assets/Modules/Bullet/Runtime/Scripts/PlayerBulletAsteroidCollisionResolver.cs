@@ -1,28 +1,29 @@
 ﻿using Modules.Common.Scripts;
 using Modules.Mover.Runtime.Scripts;
-using Modules.Rotator.Runtime.Scripts;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 namespace DefaultNamespace.Entities
 {
+    /// <summary>
+    /// Provides a method to resolve the collision between a player bullet and an asteroid
+    /// </summary>
     public static class PlayerBulletAsteroidCollisionResolver
     {
         public static void ResolveCollision(EntityManager entityManager, GameSettingsSingleton gameSettingsSingleton, Entity bulletEntity, Entity asteroidEntity)
         {
-            //destroy the bulletEntity
             entityManager.DestroyEntity(bulletEntity);
 
-
+            // Get the scale and movement of the asteroid
             NonUniformScale asteroidScale = entityManager.GetComponentData<NonUniformScale>(asteroidEntity);
             MovementComponent asteroidMovement = entityManager.GetComponentData<MovementComponent>(asteroidEntity);
 
+            // If the asteroid is big enough, create two smaller asteroids
             if (asteroidScale.Value.x > gameSettingsSingleton.asteroidMinScale && asteroidScale.Value.y > gameSettingsSingleton.asteroidMinScale)
             {
                 CreateSmallerAsteroids(entityManager, asteroidEntity, asteroidScale, asteroidMovement);
             }
 
-            //destroy the asteroidEntity and instantiate 2 smaller asteroids
             entityManager.DestroyEntity(asteroidEntity);
         }
 
@@ -32,6 +33,7 @@ namespace DefaultNamespace.Entities
             {
                 Entity newAsteroid = entityManager.Instantiate(asteroidEntity);
 
+                // Set the scale of the new asteroid
                 entityManager.SetComponentData(newAsteroid, new NonUniformScale { Value = asteroidScale.Value * 0.5f });
 
                 // Set the collision radius of the new asteroid
@@ -40,7 +42,8 @@ namespace DefaultNamespace.Entities
                 entityManager.SetComponentData(newAsteroid, collision);
 
                 // Calculate the angle of the bullet
-                float angle = 30 / 2f - i * 30;
+                const int angleOffset = 30;
+                float angle = angleOffset / 2f - i * angleOffset;
                 float3 direction = math.mul(quaternion.AxisAngle(math.forward(), math.radians(angle)), asteroidMovement.Direction);
                 asteroidMovement.UpdateDirection(direction);
                 entityManager.SetComponentData(newAsteroid, asteroidMovement);

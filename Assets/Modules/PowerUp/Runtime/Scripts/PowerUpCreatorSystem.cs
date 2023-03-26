@@ -1,11 +1,10 @@
 ﻿using System;
 using Modules.Common.Scripts;
-using Modules.Mover.Runtime.Scripts;
-using Modules.PowerUp.Runtime.Scripts;
+using Modules.Movement.Runtime.Scripts;
 using Unity.Entities;
 using Unity.Mathematics;
 using Random = Unity.Mathematics.Random;
-namespace DefaultNamespace
+namespace Modules.PowerUp.Runtime.Scripts
 {
     /// <summary>
     /// Responsible for creating power ups if there is none in the scene.

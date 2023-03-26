@@ -1,9 +1,8 @@
-﻿using DefaultNamespace.Configs;
-using Modules.Common.Scripts;
-using Modules.Mover.Runtime.Scripts;
+﻿using Modules.Common.Scripts;
+using Modules.Movement.Runtime.Scripts;
 using Unity.Entities;
 using Unity.Mathematics;
-namespace DefaultNamespace.Components
+namespace Modules.Shooter.Runtime.Scripts
 {
     /// <summary>
     /// Represents a shooter component that can shoot a bullet in the game.

@@ -1,9 +1,9 @@
 ﻿using System;
-using DefaultNamespace;
-using DefaultNamespace.Configs;
+using Modules.Collision.Runtime.Scripts;
 using Modules.PowerUp.Runtime.Scripts;
+using Modules.Shooter.Runtime.Scripts;
 using Unity.Entities;
-namespace Modules.Spaceship.Runtime.Scripts
+namespace Modules.PlayerSpaceship.Runtime.Scripts
 {
     /// <summary>
     /// Provides the logic for resolving the collision between the player spaceship and a power up.

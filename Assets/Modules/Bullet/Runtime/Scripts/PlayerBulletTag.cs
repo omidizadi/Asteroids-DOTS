@@ -1,5 +1,5 @@
 ﻿using Unity.Entities;
-namespace DefaultNamespace.Entities
+namespace Modules.Bullet.Runtime.Scripts
 {
     /// <summary>
     /// The tag component for the Player Bullet entity

@@ -1,7 +1,7 @@
 ﻿using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
-namespace Modules.Mover.Runtime.Scripts
+namespace Modules.Movement.Runtime.Scripts
 {
     /// <summary>
     /// An entity with this component will be moved by <see cref="MovementSystem"/>

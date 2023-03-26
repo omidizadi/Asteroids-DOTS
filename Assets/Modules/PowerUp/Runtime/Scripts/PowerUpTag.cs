@@ -1,5 +1,4 @@
-﻿using DefaultNamespace;
-using Unity.Entities;
+﻿using Unity.Entities;
 namespace Modules.PowerUp.Runtime.Scripts
 {
     /// <summary>

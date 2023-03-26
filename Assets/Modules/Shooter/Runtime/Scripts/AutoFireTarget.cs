@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace.Configs
+﻿namespace Modules.Shooter.Runtime.Scripts
 {
     /// <summary>
     /// Type of the target for the auto fire.

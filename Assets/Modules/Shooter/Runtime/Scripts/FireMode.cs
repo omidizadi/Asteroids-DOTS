@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace.Components
+﻿namespace Modules.Shooter.Runtime.Scripts
 {
     /// <summary>
     /// The fire mode of the shooter component.

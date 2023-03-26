@@ -2,51 +2,53 @@
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
-
-/// <summary>
-/// Responsible for detecting collisions between entities with a CollisionComponent
-/// </summary>
-public class CollisionDetectionSystem : ComponentSystem
+namespace Modules.Collision.Runtime.Scripts
 {
-    private float collisionDetectionDelay = 1f;
-    private float timeUntilCollisionDetection = 0f;
-    protected override void OnUpdate()
+    /// <summary>
+    /// Responsible for detecting collisions between entities with a CollisionComponent
+    /// </summary>
+    public class CollisionDetectionSystem : ComponentSystem
     {
-        //Sets an initial delay before collision detection starts
-        if (timeUntilCollisionDetection < collisionDetectionDelay)
+        private float collisionDetectionDelay = 1f;
+        private float timeUntilCollisionDetection = 0f;
+        protected override void OnUpdate()
         {
-            timeUntilCollisionDetection += Time.DeltaTime;
-            return;
-        }
-
-        Entities
-            .WithAll<CollisionComponent>()
-            .ForEach((Entity entity, ref Translation translation, ref CollisionComponent collision) =>
+            //Sets an initial delay before collision detection starts
+            if (timeUntilCollisionDetection < collisionDetectionDelay)
             {
-                float radius = collision.Radius;
+                timeUntilCollisionDetection += Time.DeltaTime;
+                return;
+            }
+
+            Entities
+                .WithAll<CollisionComponent>()
+                .ForEach((Entity entity, ref Translation translation, ref CollisionComponent collision) =>
+                {
+                    float radius = collision.Radius;
 
                 //Get all entities with a CollisionComponent
                 EntityQuery entityQuery = GetEntityQuery(ComponentType.ReadOnly<CollisionComponent>(), ComponentType.ReadOnly<Translation>());
                 NativeArray<Entity> entitiesInRange =  World.GetOrCreateSystem<QuadtreeSystem>().Retrieve(translation.Value.xy);
 
-                foreach (Entity otherEntity in entitiesInRange)
-                {
-                    if (entity != otherEntity && EntityManager.HasComponent<CollisionComponent>(otherEntity))
+                    foreach (Entity otherEntity in entitiesInRange)
                     {
-                        float2 otherPosition = EntityManager.GetComponentData<Translation>(otherEntity).Value.xy;
-                        CollisionComponent otherCollision = EntityManager.GetComponentData<CollisionComponent>(otherEntity);
-                        float otherRadius = otherCollision.Radius;
-                        float distance = math.distance(translation.Value.xy, otherPosition);
-
-                        //If the distance between the two entities is less than the sum of their radius, they are colliding
-                        if (distance <= radius + otherRadius)
+                        if (entity != otherEntity && EntityManager.HasComponent<CollisionComponent>(otherEntity))
                         {
-                            collision.UpdateCollisionStatus(EntityManager, entity, otherEntity);
+                            float2 otherPosition = EntityManager.GetComponentData<Translation>(otherEntity).Value.xy;
+                            CollisionComponent otherCollision = EntityManager.GetComponentData<CollisionComponent>(otherEntity);
+                            float otherRadius = otherCollision.Radius;
+                            float distance = math.distance(translation.Value.xy, otherPosition);
+
+                            //If the distance between the two entities is less than the sum of their radius, they are colliding
+                            if (distance <= radius + otherRadius)
+                            {
+                                collision.UpdateCollisionStatus(EntityManager, entity, otherEntity);
+                            }
                         }
                     }
-                }
 
-                entitiesInRange.Dispose();
-            });
+                    entitiesInRange.Dispose();
+                });
+        }
     }
 }

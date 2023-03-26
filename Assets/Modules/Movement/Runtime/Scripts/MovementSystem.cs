@@ -1,6 +1,6 @@
 ﻿using Unity.Entities;
 using Unity.Transforms;
-namespace Modules.Mover.Runtime.Scripts
+namespace Modules.Movement.Runtime.Scripts
 {
     /// <summary>
     /// A system that updates the movement of entities with a <see cref="MovementComponent"/>.

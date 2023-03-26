@@ -1,8 +1,8 @@
-﻿using DefaultNamespace.Entities;
-using Modules.Asteroids.Runtime.Scripts;
+﻿using Modules.Asteroids.Runtime.Scripts;
+using Modules.Bullet.Runtime.Scripts;
 using Modules.Common.Scripts;
+using Modules.PlayerSpaceship.Runtime.Scripts;
 using Modules.PowerUp.Runtime.Scripts;
-using Modules.Spaceship.Runtime.Scripts;
 using Unity.Entities;
 namespace Modules.Collision.Runtime.Scripts
 {

@@ -1,5 +1,5 @@
 ﻿using Unity.Entities;
-namespace Modules.Mover.Runtime.Scripts
+namespace Modules.Movement.Runtime.Scripts
 {
     /// <summary>
     /// Holds the configuration for the movement of an entity.

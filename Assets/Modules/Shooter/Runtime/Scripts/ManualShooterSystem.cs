@@ -1,9 +1,7 @@
-﻿using DefaultNamespace.Components;
-using DefaultNamespace.Configs;
-using Unity.Entities;
+﻿using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine.InputSystem;
-namespace DefaultNamespace.Systems
+namespace Modules.Shooter.Runtime.Scripts
 {
     /// <summary>
     /// Responsible for firing the shooter components based on their auto fire mode
@@ -21,8 +19,8 @@ namespace DefaultNamespace.Systems
         protected override void OnUpdate()
         {
             Entities
-                .WithAll<ShooterComponent, ShooterConfig, Translation, Rotation>()
-                .ForEach((Entity entity, ref ShooterComponent shooterComponent, ref ShooterConfig config, ref Translation translation, ref Rotation rotation) =>
+                .WithAll<ShooterComponent, ShooterConfig, Translation, Unity.Transforms.Rotation>()
+                .ForEach((Entity entity, ref ShooterComponent shooterComponent, ref ShooterConfig config, ref Translation translation, ref Unity.Transforms.Rotation rotation) =>
                 {
                     if (config.fireMode == FireMode.Manual)
                     {

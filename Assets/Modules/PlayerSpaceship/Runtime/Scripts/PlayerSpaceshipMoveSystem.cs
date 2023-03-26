@@ -1,8 +1,8 @@
-﻿using Modules.Mover.Runtime.Scripts;
+﻿using Modules.Movement.Runtime.Scripts;
 using Unity.Entities;
 using UnityEngine;
 using UnityEngine.InputSystem;
-namespace Modules.Spaceship.Runtime.Scripts
+namespace Modules.PlayerSpaceship.Runtime.Scripts
 {
     /// <summary>
     /// Responsible for moving the player spaceship using the keyboard.

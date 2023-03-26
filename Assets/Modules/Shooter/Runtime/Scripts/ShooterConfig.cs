@@ -1,6 +1,5 @@
-﻿using DefaultNamespace.Components;
-using Unity.Entities;
-namespace DefaultNamespace.Configs
+﻿using Unity.Entities;
+namespace Modules.Shooter.Runtime.Scripts
 {
     /// <summary>
     /// Keeps the configuration for the shooter component

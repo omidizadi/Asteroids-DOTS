@@ -1,6 +1,6 @@
 ﻿using Modules.Common.Scripts;
-using Modules.Mover.Runtime.Scripts;
-using Modules.Spaceship.Runtime.Scripts;
+using Modules.Movement.Runtime.Scripts;
+using Modules.PlayerSpaceship.Runtime.Scripts;
 using Unity.Entities;
 using Unity.Mathematics;
 namespace Modules.EnemySpaceship.Runtime.Scripts

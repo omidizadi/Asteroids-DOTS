@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8591309630099445449}
   - component: {fileID: 5288538861433582912}
   - component: {fileID: 1434247625469246804}
+  - component: {fileID: -5356434920108591353}
   m_Layer: 0
   m_Name: PowerupShoot
   m_TagString: Untagged
@@ -95,3 +96,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpType: 2
+--- !u!114 &-5356434920108591353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6363047136935871139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a22aef7be2964c489c8eb136bea7f046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 10

@@ -11,5 +11,6 @@ namespace Modules.Common.Scripts
         public float2 asteroidSpeedRange;
         public float2 asteroidDirectionRange;
         public float2 asteroidSpawnRange;
+        public float asteroidMinScale;
     }
 }

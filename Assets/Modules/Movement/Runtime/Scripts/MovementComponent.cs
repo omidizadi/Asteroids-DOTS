@@ -48,7 +48,6 @@ namespace Modules.Mover.Runtime.Scripts
 
         public void UpdateDirection(Vector2 direction)
         {
-            Debug.Log(direction);
             this.direction = new float3(direction.x, direction.y, 0f);
         }
 

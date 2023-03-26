@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b47b6a2a082402d8672acbffbf9f040, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroidsCount: 100
+  asteroidsCount: 15
   asteroidRotationSpeedRange:
     x: 1
     y: 2
@@ -213,6 +213,7 @@ MonoBehaviour:
   asteroidSpawnRange:
     x: 150
     y: 500
+  asteroidMinScale: 300
 --- !u!4 &1727101522
 Transform:
   m_ObjectHideFlags: 0
@@ -240,7 +241,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 164666472813593019, guid: 91ce2be955d549b49a4d7783a184a997, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -29.06
+      value: -126.1
       objectReference: {fileID: 0}
     - target: {fileID: 164666472813593019, guid: 91ce2be955d549b49a4d7783a184a997, type: 3}
       propertyPath: m_LocalPosition.y
@@ -284,88 +285,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ce2be955d549b49a4d7783a184a997, type: 3}
---- !u!1 &7730143727936867438 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 649314273587682049, guid: 91ce2be955d549b49a4d7783a184a997, type: 3}
-  m_PrefabInstance: {fileID: 7730143727936867437}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7730143727936867439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7730143727936867438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 782e37be6871487daf84d86513b5a9cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7730143727936867440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7730143727936867438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02340ea65b254b3a8d69b0487443d5c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7730143727936867441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7730143727936867438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be93d4344c184aedb4101cc94a109d30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletEntityPrefab: {fileID: 4055790621435341151, guid: a7ee81bc1bf701741a2852441e3d3f21, type: 3}
-  autoFireMode: 0
-  bulletsCount: 1
-  bulletSpeed: 200
-  timeBetweenShots: 0
---- !u!114 &7730143727936867442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7730143727936867438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20da23648d644c408ada29583cab5612, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7730143727936867444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7730143727936867438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 839e879b22e64b6180f3297fd1da2e81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 2.5
-  acceleration: 1
-  friction: 1.5
---- !u!114 &7730143727936867445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7730143727936867438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ba9794d33824e499f84b418db3a208d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

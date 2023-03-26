@@ -27,7 +27,7 @@ public class CollisionDetectionSystem : ComponentSystem
 
                 //Get all entities with a CollisionComponent
                 EntityQuery entityQuery = GetEntityQuery(ComponentType.ReadOnly<CollisionComponent>(), ComponentType.ReadOnly<Translation>());
-                NativeArray<Entity> entitiesInRange = entityQuery.ToEntityArray(Allocator.TempJob);
+                NativeArray<Entity> entitiesInRange =  World.GetOrCreateSystem<QuadtreeSystem>().Retrieve(translation.Value.xy);
 
                 foreach (Entity otherEntity in entitiesInRange)
                 {

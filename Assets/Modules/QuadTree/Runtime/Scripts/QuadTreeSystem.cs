@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
-using Unity.Burst;
+﻿using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
-using UnityEngine;
-
-[UpdateBefore(typeof(CollisionSystem))]
+[UpdateBefore(typeof(CollisionDetectionSystem))]
 [BurstCompile]
 public class QuadtreeSystem : JobComponentSystem
 {

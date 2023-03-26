@@ -16,6 +16,17 @@ public struct CollisionComponent : IComponentData
     //logic
     private Entity collidedEntity;
     public Entity CollidedEntity => collidedEntity;
+    private bool disabled;
+
+    public void Disable()
+    {
+        disabled = true;
+    }
+
+    public void Enable()
+    {
+        disabled = false;
+    }
 
     public void UpdateCollisionStatus(EntityManager entityManager, Entity myEntity, Entity other)
     {
@@ -43,11 +54,15 @@ public struct CollisionComponent : IComponentData
 
     private bool CanCollideWithPlayerBullet(Entity other)
     {
-        return entityManager.HasComponent<EnemySpaceshipTag>(other) || entityManager.HasComponent<AsteroidTag>(other);
+        return entityManager.HasComponent<EnemySpaceshipTag>(other) && !disabled
+            || entityManager.HasComponent<AsteroidTag>(other) && !disabled;
     }
 
     private bool CanCollideWithPlayerSpaceship(Entity other)
     {
-        return entityManager.HasComponent<EnemySpaceshipTag>(other) || entityManager.HasComponent<EnemyBulletTag>(other) || entityManager.HasComponent<AsteroidTag>(other) || entityManager.HasComponent<PowerUpTag>(other);
+        return entityManager.HasComponent<EnemySpaceshipTag>(other) && !disabled
+            || entityManager.HasComponent<EnemyBulletTag>(other) && !disabled
+            || entityManager.HasComponent<AsteroidTag>(other) && !disabled
+            || entityManager.HasComponent<PowerUpTag>(other);
     }
 }

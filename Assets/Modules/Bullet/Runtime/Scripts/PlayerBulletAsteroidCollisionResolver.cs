@@ -6,9 +6,9 @@ using Unity.Mathematics;
 using Unity.Transforms;
 namespace DefaultNamespace.Entities
 {
-    public struct PlayerBulletAsteroidCollisionResolver
+    public static class PlayerBulletAsteroidCollisionResolver
     {
-        public void ResolveCollision(EntityManager entityManager, GameSettingsSingleton gameSettingsSingleton, Entity bulletEntity, Entity asteroidEntity)
+        public static void ResolveCollision(EntityManager entityManager, GameSettingsSingleton gameSettingsSingleton, Entity bulletEntity, Entity asteroidEntity)
         {
             //destroy the bulletEntity
             entityManager.DestroyEntity(bulletEntity);
@@ -26,7 +26,7 @@ namespace DefaultNamespace.Entities
             entityManager.DestroyEntity(asteroidEntity);
         }
 
-        private void CreateSmallerAsteroids(EntityManager entityManager, Entity asteroidEntity, NonUniformScale asteroidScale, MovementComponent asteroidMovement)
+        private static void CreateSmallerAsteroids(EntityManager entityManager, Entity asteroidEntity, NonUniformScale asteroidScale, MovementComponent asteroidMovement)
         {
             for (int i = 0; i < 2; i++)
             {

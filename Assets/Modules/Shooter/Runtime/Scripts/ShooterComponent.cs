@@ -28,13 +28,12 @@ namespace DefaultNamespace.Components
         /// <param name="config">The configuration settings for the shooter.</param>
         /// <param name="shooterPosition">The position of the shooter</param>
         /// <param name="shooterRotation">The rotation of the shooter</param>
-        /// <param name="deltaTime">The delta time in the game.</param>
         /// <param name="fireInput">Whether the fire button is pressed or not. Only used for manual shooting</param>
-        public void Shoot(EntityManager entityManager, ShooterConfig config, float3 shooterPosition, quaternion shooterRotation, float deltaTime, bool fireInput)
+        public void ShootManual(EntityManager entityManager, ShooterConfig config, float3 shooterPosition, quaternion shooterRotation, bool fireInput)
         {
             // Update the initial position and rotation of the shooter
-            this.position = shooterPosition;
-            this.rotation = shooterRotation;
+            position = shooterPosition;
+            rotation = shooterRotation;
 
             // If the shooter is in manual fire mode, check if the fire button is pressed
             if (config.autoFireMode == AutoFireMode.Manual)
@@ -45,15 +44,14 @@ namespace DefaultNamespace.Components
                     Shoot(entityManager, config);
                 }
             }
-            // If the shooter is in auto fire mode, shoot automatically according to time between shots
-            else
-            {
-                ShootAutoFire(entityManager, config, deltaTime);
-            }
         }
 
-        private void ShootAutoFire(EntityManager entityManager, ShooterConfig config, float deltaTime)
+        public void ShootAuto(EntityManager entityManager, ShooterConfig config, float3 shooterPosition, quaternion shooterRotation, float deltaTime)
         {
+            // Update the initial position and rotation of the shooter
+            position = shooterPosition;
+            rotation = shooterRotation;
+
             if (timeSinceLastShot >= config.timeBetweenShots)
             {
                 // Shoot a bullet

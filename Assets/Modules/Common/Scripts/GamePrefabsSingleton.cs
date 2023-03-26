@@ -18,4 +18,5 @@ public struct GamePrefabsSingleton : IComponentData
     [Header("PowerUps")]
     public Entity powerUpShieldPrefab;
     public Entity powerUpTripleShotPrefab;
+    public Entity powerUpBulletSpeedPrefab;
 }

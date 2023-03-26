@@ -4,6 +4,7 @@ using Modules.Common.Scripts;
 using Modules.PowerUp.Runtime.Scripts;
 using Modules.Spaceship.Runtime.Scripts;
 using Unity.Entities;
+using UnityEngine;
 namespace Modules.Collision.Runtime.Scripts
 {
     [UpdateAfter(typeof(CollisionDetectionSystem))]
@@ -28,18 +29,20 @@ namespace Modules.Collision.Runtime.Scripts
                     }
                 });
         }
+        
         private void HandlePlayerBulletCollision(CollisionComponent collisionComponent, Entity entity)
         {
             if (EntityManager.HasComponent<AsteroidTag>(collisionComponent.CollidedEntity))
             {
-                PlayerBulletAsteroidCollisionResolver resolver = new PlayerBulletAsteroidCollisionResolver();
-                resolver.ResolveCollision(EntityManager, GetSingleton<GameSettingsSingleton>(), entity, collisionComponent.CollidedEntity);
+                PlayerBulletAsteroidCollisionResolver.ResolveCollision(EntityManager, GetSingleton<GameSettingsSingleton>(), entity, collisionComponent.CollidedEntity);
             }
             if (EntityManager.HasComponent<EnemySpaceshipTag>(collisionComponent.CollidedEntity))
             {
                 EntityManager.DestroyEntity(entity);
+                EntityManager.DestroyEntity(collisionComponent.CollidedEntity);
             }
         }
+        
         private void HandlePlayerSpaceshipCollision(CollisionComponent collisionComponent, Entity entity)
         {
             if (EntityManager.HasComponent<AsteroidTag>(collisionComponent.CollidedEntity) ||
@@ -50,7 +53,7 @@ namespace Modules.Collision.Runtime.Scripts
             }
             if (EntityManager.HasComponent<PowerUpTag>(collisionComponent.CollidedEntity))
             {
-                EntityManager.DestroyEntity(collisionComponent.CollidedEntity);
+                PlayerSpaceshipPowerUpCollisionResolver.Resolve(EntityManager, entity, collisionComponent.CollidedEntity);
             }
         }
     }

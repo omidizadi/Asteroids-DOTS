@@ -11,7 +11,7 @@ namespace DefaultNamespace.Systems
     /// <summary>
     /// Responsible for firing the shooter components based on their auto fire mode
     /// </summary>
-    public class ShooterSystem : ComponentSystem
+    public class ManualShooterSystem : ComponentSystem
     {
         //TODO: The shooter system should not be responsible for the input
         private InputAction fireInputAction;
@@ -28,14 +28,15 @@ namespace DefaultNamespace.Systems
                 .WithAll<ShooterComponent, ShooterConfig, Translation, Rotation>()
                 .ForEach((Entity entity, ref ShooterComponent shooterComponent, ref ShooterConfig config, ref Translation translation, ref Rotation rotation) =>
                 {
-                    //TODO: this can potentially be refactored to have less parameters
-                    shooterComponent.Shoot(
-                        EntityManager,
-                        config,
-                        translation.Value,
-                        rotation.Value,
-                        Time.DeltaTime,
-                        fireInputAction.triggered);
+                    if (config.autoFireMode == AutoFireMode.Manual)
+                    {
+                        shooterComponent.ShootManual(
+                            EntityManager,
+                            config,
+                            translation.Value,
+                            rotation.Value,
+                            fireInputAction.triggered);
+                    }
                 });
         }
 

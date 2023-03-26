@@ -157,6 +157,7 @@ MonoBehaviour:
   asteroidPrefab: {fileID: 8846943387123936771, guid: d8039ebf503c0ca4ca263884f39b87a4, type: 3}
   powerUpShieldPrefab: {fileID: 1760505950362756638, guid: 35aec140d5508e54b9fff445d3fd43c8, type: 3}
   powerUpTripleShotPrefab: {fileID: 6363047136935871139, guid: 4b98dea0e7e1da04eadea6159b048dec, type: 3}
+  powerUpBulletSpeedPrefab: {fileID: 6363047136935871139, guid: 54b5ef7793079264a9b16ee999220aa7, type: 3}
 --- !u!4 &889383597
 Transform:
   m_ObjectHideFlags: 0
@@ -214,6 +215,18 @@ MonoBehaviour:
     x: 150
     y: 500
   asteroidMinScale: 300
+  powerUpsSpawnRange:
+    x: -100
+    y: 100
+  enemySpaceshipDirectionRange:
+    x: -1
+    y: 1
+  enemySpaceshipSpawnRange:
+    x: 150
+    y: 300
+  enemySpaceshipSpeedRange:
+    x: 10
+    y: 20
 --- !u!4 &1727101522
 Transform:
   m_ObjectHideFlags: 0
@@ -283,5 +296,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spaceship
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8669568927839018535, guid: 91ce2be955d549b49a4d7783a184a997, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 91ce2be955d549b49a4d7783a184a997, type: 3}

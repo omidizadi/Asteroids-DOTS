@@ -11,6 +11,7 @@ namespace DefaultNamespace.Configs
     public struct ShooterConfig : IComponentData
     {
         public Entity bulletEntityPrefab;
+        public AutoFireTarget autoFireTarget;
         public AutoFireMode autoFireMode;
         public int bulletsCount;
         public float bulletSpeed;
